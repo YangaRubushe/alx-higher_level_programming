@@ -1,55 +1,29 @@
 #!/usr/bin/python3
-""" This module is about a function
-function that prints a text with 2 new lines
-after each of these characters: ., ? and :"""
+"""Defines a text-indentation function."""
 
 
 def text_indentation(text):
-    """
-     function that prints a text with 2 new lines after ., ? and :
-     Args: text string
-     Returns : void, prints text indented
-    """
+    """Print text with two new lines after each '.', '?', and ':'.
 
-    if not isinstance(text, str):
-        raise TypeError("text must be a string")
-    # remove spaces at bothends
-    # split at \n into lines
-    # strip the separated lines
-    # manage spaces
-
+    Args:
+        text (string): The text to print.
+    Raises:
+        TypeError: If text is not a string.
+    """
     if not isinstance(text, str):
         raise TypeError("text must be a string")
 
-    lines = text.strip().split("\n")
-    is_space = False
-    result = []
+    c = 0
+    while c < len(text) and text[c] == ' ':
+        c += 1
 
-    for line in lines:
-        line = line.strip()
-        if not line:
+    while c < len(text):
+        print(text[c], end="")
+        if text[c] == "\n" or text[c] in ".?:":
+            if text[c] in ".?:":
+                print("\n")
+            c += 1
+            while c < len(text) and text[c] == ' ':
+                c += 1
             continue
-
-        ind_line = []
-        is_space = False
-        result = []
-
-        for i, char in enumerate(line):
-            if char in [".", ":", "?"]:
-                ind_line.append(char)
-                if i < len(line) - 1:
-                    ind_line.append("\n\n")
-                is_space = False
-
-            elif char == " ":
-                if not is_space:
-                    ind_line.append(char)
-                    is_space = True
-            else:
-                ind_line.append(char)
-                is_space = False
-
-        result.extend(ind_line)
-
-    result = "\n".join(result)
-    print(result)
+        c += 1
